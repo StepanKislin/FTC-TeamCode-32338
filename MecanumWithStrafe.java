@@ -19,6 +19,9 @@ public class MecanumWithStrafe extends LinearOpMode {
         DcMotor rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         DcMotor rightRear  = hardwareMap.get(DcMotor.class, "rightRear");
         DcMotor extraMotor = hardwareMap.get(DcMotor.class, "extraMotor");
+        DcMotor leftExtra = hardwareMap.get(DcMotor.class, "leftExtra");
+        DcMotor rightExtra = hardwareMap.get(DcMotor.class, "rightExtra");
+        
 
         // 🔑 КРИТИЧЕСКИ ВАЖНО: правильные направления для Mecanum!
         leftFront.setDirection(DcMotor.Direction.FORWARD);
@@ -27,6 +30,10 @@ public class MecanumWithStrafe extends LinearOpMode {
         rightRear.setDirection(DcMotor.Direction.FORWARD);
 
         extraMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftExtra.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightExtra.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
 
         VoltageSensor batterySensor = hardwareMap.voltageSensor.iterator().next();
 
@@ -64,6 +71,9 @@ public class MecanumWithStrafe extends LinearOpMode {
 
             // Доп. мотор по кнопке X
             extraMotor.setPower(gamepad1.x ? 1.0 : 0.0);
+            leftExtra.setPower(gamepad1.y ? 0.5 : 0.0);
+            rightExtra.setPower(gamepad1.y ? 0.5 : 0.0);
+            
 
             // Telemetry
             telemetry.addData("Напряжение", "%.1f В", batterySensor.getVoltage());
